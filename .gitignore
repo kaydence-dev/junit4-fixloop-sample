@@ -2,3 +2,6 @@ target/
 *.class
 .idea/
 *.iml
+
+# graphify knowledge graph (kaydence tooling)
+graphify-out/
