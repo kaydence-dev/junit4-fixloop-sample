@@ -1,0 +1,20 @@
+name: Maven CI
+
+# push + pull_request so the base commit gets a green run and every migration PR
+# is checked the same way. NOTE: this runs `mvn -B verify` (test + checkstyle),
+# which is STRICTER than the `mvn test` the migration validates with locally.
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Build, test, and checkstyle
+        run: mvn -B verify
